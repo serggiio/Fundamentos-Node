@@ -1,0 +1,28 @@
+<%- include("templates/header")  %>
+
+<body>
+    <h1>CREAR NUEVA MASCOTA: </h1>
+
+    <div class="container">
+        <form action="/mascotas/savePet" method="POST">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp" required>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPa1" class="form-label">Descripcion</label>
+              <input type="text" class="form-control" id="description" name="description" required>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPword1" class="form-label">Tipo</label>
+                <input type="text" class="form-control" id="type" name="type" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+    </div>
+
+    <%- include("templates/footer")  %>
+    
+</body>
+</html>

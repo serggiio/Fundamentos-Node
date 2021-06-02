@@ -1,0 +1,110 @@
+<%- include("templates/header")  %>
+
+<body>
+    <h1>DETALLE: </h1>
+
+    <div class="container">
+      <div class="card">
+        <% if (error) { %>
+            <div class="card-header">
+              <p><%= message %> </p>
+            </div>            
+            <div class="card-body">
+              <a href="/mascotas" >Volver</a>
+            </div>
+        <% } %>
+
+        <% if (!error) { %>
+          
+            <div class="card-header">
+              <h5>Nombre</h5>
+            </div>
+            <div class="card-body">
+
+              <form id="formEdit" data-id="<%= pet.id %>">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Nombre</label>
+                  <input type="text" class="form-control" id="nameInput" name="name" aria-describedby="emailHelp" required value="<%= pet.name %> ">
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPa1" class="form-label">Descripcion</label>
+                  <input type="text" class="form-control" id="descriptionInput" name="description" required value="<%= pet.description %> ">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPword1" class="form-label">Tipo</label>
+                    <input type="text" class="form-control" id="typeInput" name="type" required value="<%= pet.type %> ">
+                </div>
+    
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+
+            </div>
+
+            <div class="card-footer">
+              <a id="btnEliminar" class="btn btn-danger" data-id="<%= pet.id %> ">Eliminar</a>
+            </div>
+          
+        <% } %>  
+      </div>
+    </div>
+
+    <%- include("templates/footer")  %>
+    
+</body>
+
+<script>
+
+  const btnEliminar = document.querySelector('#btnEliminar');
+
+  btnEliminar.addEventListener('click', async() =>  {
+    
+    const id = btnEliminar.dataset.id;
+    try {
+
+      console.log('Me clickeaste papu' + id);
+      const data = await fetch('/mascotas/delete/'+id, {
+        method: 'delete'
+      });
+
+      const res = await data.json();
+      console.log(res);
+
+      window.location.href = '/mascotas';
+
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+
+  const editForm = document.querySelector('#formEdit');
+
+  editForm.addEventListener('submit', async(e) =>{
+    e.preventDefault();
+    const id = editForm.dataset.id;
+
+    const name = document.getElementById("nameInput").value;
+    const description = document.getElementById("descriptionInput").value;
+    const type = document.getElementById("typeInput").value;
+    console.log(id);
+
+    try {
+
+      const data = await fetch('/mascotas/edit/'+id, {
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({name: name, description: description, type: type})
+      });
+
+      const res = await data.json();
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+
+  });
+
+</script>
+</html>

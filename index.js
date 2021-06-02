@@ -1,27 +1,5 @@
-const fetch = require("node-fetch");
+//const fetch = require("node-fetch");
 
-let dataFetch;
-let dataa;
-
-
-function testSum() {
-    fetch('https://pokeapi.co/api/v2/pokemon/ditto')
-    .then(res => {
-        return res.json()
-    })
-    .then(data => {
-        return data.abilities;
-
-    })
-}
-
-function test2() {
-    return new Promise(async (resolve, reject) => {
-        
-          resolve("¡Éxito!"); // ¡Todo salió bien!
-
-    });
-}
 
 /*function getDataFromAPI() {
     return fetch("https://api.github.com/users/up1")
@@ -29,11 +7,21 @@ function test2() {
         .then(data => data.login)
 }*/
 
-async function validateEndDate(oldDate, newDate) {
-    return 10;
-}
+const server = require('./app')
 
-let aaa = await validateEndDate(0, 1)
+/*const http = require('http');
+//siempre recibe require y response
+const server = http.createServer((req, res) => {
+    res.end('Respuestirijilla ');
+});*/
 
-console.log(aaa);
+const port = 3000;
+
+/*server.listen(port? port: 3000, () => {
+    console.log('Server listening at port: ' + port);
+});*/
+
+server.server.listen(port? port: 3000, () => {
+    console.log('Servidor haciendo la funcionacion en : ' + port);
+});
 
