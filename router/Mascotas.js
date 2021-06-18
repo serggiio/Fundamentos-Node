@@ -40,7 +40,7 @@ router.post('/savePet', async(req, res) => {
         });
 
     } catch (error) {
-        console.log('Erroooooor: ' + error);
+        console.log('Errooooor: ' + error);
     }
     
     

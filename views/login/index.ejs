@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJS </title>
+
+    <%- include("partials/headerCdn")  %>
+</head>
+
+<body>
+    
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+
+            <div class="card" style="margin-top: 30px">
+                <div class="card-header text-center">
+                    <h3>AUTHENTICATION <i class="fa fa-lock"></i></h3>
+                </div>
+                <div class="card-body text-center">
+
+                    <a class="btn btn-success" href="/authentication/login">Local login <i class="fa fa-user"></i></a>
+
+                    <a class="btn btn-info" href="/authentication/signup">Local Signup <i class="fa fa-user"></i></a>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <hr>
+    <div class="alert alert-secondary" role="alert">
+        Gracias por visitar
+    </div>
+
+    <!-- <%- include("../templates/footer")  %> -->
+
+</body>
+</html>
+
