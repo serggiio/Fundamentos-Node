@@ -3,15 +3,22 @@ const bcrypt = require('bcrypt-nodejs');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
+  type: String,
   local: {
       email: String,
       password: String
   },
-  fabebook: {
+  facebook: {
       email: String,
       password: String,
       id: String,
-      token: String
+      token: String,
+      name: String,
+      provider_id: {type: String, unique: true},
+      photo: String,
+      createdAt: {type: Date, default: Date.now},
+      extra: Object
+
   },
   twitter: {
     email: String,

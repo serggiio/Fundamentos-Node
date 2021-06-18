@@ -2,6 +2,8 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const User = require('../models/user');
 
+const FacebookStrategy = require('passport-facebook').Strategy;
+
 module.exports = function (passport) {
     passport.serializeUser(function (user, done) {
         done(null, user.id);
@@ -27,6 +29,7 @@ module.exports = function (passport) {
                         let newUser = new User();
                         newUser.local.email = email;
                         newUser.local.password = newUser.generateHash(password);
+                        newUser.type = 'local';
                         newUser.save(function (err) {
                             if (err) { throw err}
                             return done(null, newUser);
@@ -58,4 +61,42 @@ module.exports = function (passport) {
             }
         )
     );
+
+
+    	// Configuración del autenticado con Facebook
+	passport.use(new FacebookStrategy({
+		clientID			: '2580538052253538',
+		clientSecret	: '2ad135e5440e230d2eb7387216b06c44',
+		callbackURL	 : '/authentication/facebook/callback',
+		profileFields : ['id', 'displayName', /*'provider',*/ 'photos']
+	}, function(accessToken, refreshToken, profile, done) {
+		// El campo 'profileFields' nos permite que los campos que almacenamos
+		// se llamen igual tanto para si el usuario se autentica por Twitter o
+		// por Facebook, ya que cada proveedor entrega los datos en el JSON con
+		// un nombre diferente.
+		// Passport esto lo sabe y nos lo pone más sencillo con ese campo
+		User.findOne({'facebook.provider_id': profile.id}, function(err, user) {
+			if(err) throw(err);
+			if(!err && user!= null) return done(null, user);
+
+			// Al igual que antes, si el usuario ya existe lo devuelve
+			// y si no, lo crea y salva en la base de datos
+			var user = new User(
+                {
+                    type: 'facebook',
+                    facebook: {
+                        provider_id	: profile.id,
+                        provider		 : profile.provider,
+                        name				 : profile.displayName,
+                        photo				: profile.photos[0].value,
+                        extra: profile
+                    }
+                }
+            );
+			user.save(function(err) {
+				if(err) throw err;
+				done(null, user);
+			});
+		});
+	}));
 }

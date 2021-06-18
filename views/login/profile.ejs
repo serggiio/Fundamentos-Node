@@ -14,12 +14,12 @@
     <div class="container">
         <header class="text-center">
             <h1>Profile page</h1>
-            <a href="/authentication/logout" class="btn btn-danger">Exit</a>
+            <a href="/authentication/logout" class="btn btn-danger">Logout</a>
         </header>
         <hr>
 
-        <div class="container">
-            <div class="col-sm-6">
+        <div class="row">
+            <div class="col-sm-5">
                 <div class="card">
                     <div class="card-header">
                         Login with npm passport and mongo connection example <br>
@@ -27,11 +27,45 @@
                     </div>
                     <div class="card-body">
                         <p>
-                            <strong>Id</strong> : <%= user.id %> <br>
+                            <strong>Local id</strong> : <%= user.id %> <br>
                             <strong>Email</strong> <%= user.local.email %> <br>
-                            <strong>Password bcrypt</strong> <%= user.local.password %>
+                            <strong>Password bcrypt</strong> <%= user.local.password %> <br>
+                            
+                            
+                            <% if (user.type == 'facebook') { %>
+                                
+                                <strong>Provider id</strong> <%= user.facebook.provider_id %> <br>
+                                <strong>Url photo</strong> <%= user.facebook.photo %> <br>
+                            <% } %>
+
                         </p>
                     </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="card">
+
+                    <div class="card-header">
+                        Profile data: 
+                    </div>
+
+                    <% if(user.type == 'facebook'){ %>
+                        <div class="card-body text-center">
+                            <img src="<%= user.facebook.photo %>" alt="..." class="img-thumbnail"> <br>
+    
+                            <strong><%= user.facebook.name %></strong>
+    
+                        </div>  
+                      <% } else{ %>  
+                        <div class="card-body text-center">
+                            <strong>Actual provider: <%= user.hasOwnProperty('facebook') ? user.hasOwnProperty('facebook') : 'Local' %> </strong> <br>
+                            <strong>Use facebook login to show the profile foto and name</strong>
+    
+                        </div> 
+                    <% } %>
+                    
+                    
                 </div>
             </div>
         </div>

@@ -43,6 +43,19 @@ module.exports = (app, passport) => {
         });
     });
 
+    app.get(ROUTERNAME + '/fbLogin', (req, res) => {
+        res.render('login/facebookLogin', {
+            message: req.flash('facebook message')
+        });
+    });
+
+    app.get(ROUTERNAME + '/facebook', passport.authenticate('facebook'));
+
+    app.get(ROUTERNAME + '/facebook/callback', passport.authenticate('facebook',{ 
+        successRedirect: '/authentication/profile', 
+        failureRedirect: '/login' 
+    }));
+
     function isLoggedIn (req, res, next) {
         if (req.isAuthenticated()) {
             return next();
